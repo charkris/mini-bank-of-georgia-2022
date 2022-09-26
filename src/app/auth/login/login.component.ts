@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'bg-login',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
+  onInput(inp) {
+    console.log((inp.target as HTMLInputElement).value);
+
+  }
+  goToRegister() {
+    console.log('register');
+    //console.log(this.activeRoute)
+    this.router.navigate(['/register']);
+    console.log(this.route.snapshot)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 }

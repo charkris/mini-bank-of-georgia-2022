@@ -22,6 +22,7 @@ import { OperationsComponent } from './shell/modules/krn/operations/operations.c
 import { CreateAccountComponent } from './shell/modules/krn/accounts/create-account/create-account.component';
 import { PmdComponent } from './shell/modules/pmd/pmd.component';
 import { Pmd311Component } from './shell/modules/pmd/pmd311/pmd311.component';
+import { PopupDirective } from './shell/shell-header/popup.directive';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { Pmd311Component } from './shell/modules/pmd/pmd311/pmd311.component';
     OperationsComponent,
     CreateAccountComponent,
     PmdComponent,
-    Pmd311Component
+    Pmd311Component,
+    PopupDirective
   ],
   imports: [
     BrowserModule,

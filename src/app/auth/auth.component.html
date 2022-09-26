@@ -4,6 +4,8 @@
     <img src="/assets/images/logo.svg" alt="logo">
     <div class="ui form">
       <!-- TODO: Here goes your markup -->
+      <bg-login *ngIf="showFlag"></bg-login>
+      <bg-register *ngIf="!showFlag"></bg-register>
     </div>
   </div>
 </div>
