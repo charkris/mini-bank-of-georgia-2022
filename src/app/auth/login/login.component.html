@@ -1,7 +1,8 @@
 <form class="ui form">
   <div class="field">
     <div class="ui left icon input">
-      <input type="text" placeholder="მომხმარებელი" (input)="onInput($event)"><i class="user icon"></i>
+      <input type="text" placeholder="მომხმარებელი" ><i class="user icon"></i>
+<!--      (input)="onInput($event)"-->
     </div>
   </div>
   <div class="field">
@@ -10,7 +11,8 @@
     </div>
   </div>
   <div class="auth__actions">
-    <a class="auth__switch-mode" (click)="goToRegister()">
+    <a class="auth__switch-mode" >
+<!--      (click)="goToRegister()"-->
       <span class="ui orange text">რეგისტრაცია</span>
     </a>
     <button class="ui basic orange right floated button" type="submit">

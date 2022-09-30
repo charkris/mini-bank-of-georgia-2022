@@ -1,0 +1,16 @@
+.card .card-background {
+  background: #f5f5f5 url('https://bog-angular-course-final.herokuapp.com/assets/images/bg.png');
+  position: absolute;
+  opacity: 0.25;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: opacity .1s ease;
+  color: black;
+  font-weight: bold;
+}
+
+.card .card-background:hover {
+  opacity: 0.6;
+}
