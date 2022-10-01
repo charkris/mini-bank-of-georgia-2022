@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PopupDirective} from './popup.directive';
+import {AuthService} from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'bg-shell-header',
@@ -9,6 +10,10 @@ import {PopupDirective} from './popup.directive';
 
 export class ShellHeaderComponent {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
+  onLogout() {
+    console.log('asdasd');
+    this.authService.logout();
+  }
 }

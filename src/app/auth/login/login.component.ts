@@ -2,6 +2,7 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {logger} from 'codelyzer/util/logger';
 import {FormControl, FormGroup, FormsModule, Validators} from '@angular/forms';
+import {AuthService} from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'bg-login',
@@ -12,11 +13,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
     this.initForm();
+
   }
 
   onLogin() {
@@ -27,6 +29,13 @@ export class LoginComponent implements OnInit {
     const username = this.get('userName').value;
     const password = this.get('password').value;
     console.log(username, password);
+    this.authService.login(username, password).subscribe(
+      (resData) => {
+        console.log(resData);
+        this.router.navigate(['/']);
+        this.loginForm.reset();
+      }
+    );
   }
 
   onInput(inp) {

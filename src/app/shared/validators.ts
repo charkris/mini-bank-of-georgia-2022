@@ -12,7 +12,7 @@ export class BGValidators extends Validators {
   static maxLength(length) {
     return (control) =>
       super.maxLength(length)(control)
-        ? {maxLength: 'გთხოვთ შეიყვანოთ მინიმუმ ' + length  + ' სიმბოლო'}
+        ? {maxLength: 'გთხოვთ შეიყვანოთ მაქსიმუმ ' + length  + ' სიმბოლო'}
         : undefined;
   }
 
@@ -26,7 +26,7 @@ export class BGValidators extends Validators {
     return (control: AbstractControl) => {
       if (super.pattern(pattern)(control)) {
         return {
-          minLength: `გთხოვთ დაიცვათ შაბლონი: '${patternDescription || pattern.toString()}'`
+          minLength: `გთხოვთ დაიცვათ შაბლონი '${patternDescription || pattern.toString()}'`
         };
       }
     };

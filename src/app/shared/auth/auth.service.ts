@@ -1,12 +1,70 @@
-import { Injectable } from '@angular/core';
+import {ApplicationInitStatus, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {BehaviorSubject, throwError} from 'rxjs';
+import {User} from './user.model';
+import {LoaderService} from '../loader/loader.service';
+import {AuthResponseModel} from './auth-response.model';
+import {catchError, tap} from 'rxjs/operators';
+import {error} from 'protractor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(  private router: Router) { }
+  user = new BehaviorSubject<User>(undefined);
+  private timer: number;
+
+  constructor(private http: HttpClient, private loaderService: LoaderService, private router: Router) {
+  }
+
+
+  registerUser(name, username, password) {
+    return this.http.post<AuthResponseModel>('register', {
+      name,
+      username,
+      password,
+    }).pipe(
+      this.loaderService.useLoader,
+      catchError((err) => throwError(err.error)),
+      tap((resData) => this.authHandler(resData))
+    );
+  }
+
+  login(username, password) {
+    return this.http.post<AuthResponseModel>('login', {
+      username, password
+    }).pipe(
+      this.loaderService.useLoader,
+      catchError((err) => throwError(err.err)),
+      tap((resData) => this.authHandler(resData))
+    );
+  }
+
+  logout() {
+
+    this.user.next(undefined);
+    this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.timer = undefined;
+
+  }
+
+  authHandler = (resData: AuthResponseModel) => {
+    const user = new User(
+      resData.token,
+      new Date(resData.expirationDate),
+      resData.name,
+      resData.username,
+      resData.image,
+    );
+    this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
+    // auto logout
+  };
 
 }
