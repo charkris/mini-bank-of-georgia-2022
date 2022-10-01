@@ -1,19 +1,17 @@
-<form class="ui form">
+<form class="ui form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
   <div class="field">
     <div class="ui left icon input">
-      <input type="text" placeholder="მომხმარებელი" ><i class="user icon"></i>
-<!--      (input)="onInput($event)"-->
+      <input type="text" placeholder="მომხმარებელი" formControlName="userName" (input)="onInput($event)"><i class="user icon"></i>
     </div>
   </div>
   <div class="field">
     <div class="ui left icon input ">
-      <input type="password" placeholder="პაროლი"><i class="lock icon"></i>
+      <input type="password" placeholder="პაროლი" formControlName="password"><i class="lock icon"></i>
     </div>
   </div>
   <div class="auth__actions">
     <a class="auth__switch-mode" >
-<!--      (click)="goToRegister()"-->
-      <span class="ui orange text">რეგისტრაცია</span>
+      <span class="ui orange text pointer" routerLink="/auth/register">რეგისტრაცია</span>
     </a>
     <button class="ui basic orange right floated button" type="submit">
       <i class="sign in alternate icon"></i>
