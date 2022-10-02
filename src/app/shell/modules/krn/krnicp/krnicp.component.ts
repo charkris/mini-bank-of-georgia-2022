@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'bg-krnicp',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KrnicpComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  endSession() {
+    console.log('aaaaaaa');
+    this.router.navigate(['bpm/bpm000']);
+  }
 }

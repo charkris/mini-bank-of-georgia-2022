@@ -48,8 +48,12 @@ export class Bpm000Component implements OnInit {
     });
   }
 
-  gotoRegister() {
+  goToRegister() {
     this.router.navigate(['/bpm/bpm001']);
+  }
+
+  goToClientHeader() {
+    this.router.navigate(['krn/krnicp'])
   }
 
   get(controlName) {

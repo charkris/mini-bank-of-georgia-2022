@@ -2,3 +2,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.client-list:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}

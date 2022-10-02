@@ -31,7 +31,7 @@
   <div class="ui segment" *ngIf="showFlag">
     <div class="table-header">
       <span>კლიენტები</span>
-      <div class="ui icon button" (click)="gotoRegister()">
+      <div class="ui icon button" (click)="goToRegister()">
         <i class="icon plus"></i>
       </div>
     </div>
@@ -42,7 +42,7 @@
       <th>კლიენტის უნიკალური</th>
       </thead>
       <tbody>
-      <tr *ngFor="let client of clientsArr">
+      <tr *ngFor="let client of clientsArr" (click)="goToClientHeader()" class="client-list">
         <td>{{client.firstName}}</td>
         <td>{{client.lastName}}</td>
         <td>{{client.clientKey}}</td>
