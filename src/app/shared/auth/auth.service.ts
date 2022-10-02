@@ -14,13 +14,14 @@ import {error} from 'protractor';
 export class AuthService {
 
   user = new BehaviorSubject<User>(undefined);
-  private timer: number;
+  loggedError = new BehaviorSubject<string>(undefined);
+  private timer: any;
 
   constructor(private http: HttpClient, private loaderService: LoaderService, private router: Router) {
   }
 
-
   registerUser(name, username, password) {
+    // this.autoLogout(Math.min(300000));
     return this.http.post<AuthResponseModel>('register', {
       name,
       username,
@@ -33,17 +34,19 @@ export class AuthService {
   }
 
   login(username, password) {
+    // this.autoLogout(Math.min(300000));
     return this.http.post<AuthResponseModel>('login', {
       username, password
     }).pipe(
       this.loaderService.useLoader,
-      catchError((err) => throwError(err.err)),
+      catchError((err) =>
+        throwError(this.loggedError.next(err.error)),
+      ),
       tap((resData) => this.authHandler(resData))
     );
   }
 
   logout() {
-
     this.user.next(undefined);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
@@ -51,7 +54,14 @@ export class AuthService {
       clearTimeout(this.timer);
     }
     this.timer = undefined;
+  }
 
+  autoLogout(expDate) {
+    this.timer = setTimeout(() => {
+      localStorage.removeItem('userData');
+      this.router.navigate(['/auth']);
+    }, expDate);
+    // ng on destroy-ში შეიძლება იყოს გასატანი
   }
 
   authHandler = (resData: AuthResponseModel) => {

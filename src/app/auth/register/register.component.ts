@@ -37,15 +37,15 @@ export class RegisterComponent implements OnInit {
       (resData) => {
         console.log(resData);
         this.registerForm.reset();
-        this.router.navigate(['/']);
+        this.router.navigate(['/bpm/bpm000']);
       }, (error) => {
         this.error = error;
       }
     );
   }
 
-  get(controlname) {
-    return this.registerForm.get(controlname);
+  get(controlName) {
+    return this.registerForm.get(controlName);
   }
 
   errors(controlName) {

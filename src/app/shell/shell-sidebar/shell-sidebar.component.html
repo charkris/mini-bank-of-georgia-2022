@@ -1,6 +1,15 @@
 <div class="left-sidebar">
   <div class="left-sidebar__user-section">
     <!-- TODO: Show User's name and picture here -->
+    <div class="user-header-wrapper">
+      <div class="user-img-wrapper">
+        <img class="user-img" src="{{img_src}}">
+      </div>
+      <div class="user-info-wrapper">
+        <div class="user-fullname">{{fullName}}</div>
+      </div>
+    </div>
+    <div class="user-username">{{userName | uppercase}}</div>
   </div>
   <ul class="left-sidebar__pages-section">
     <li>

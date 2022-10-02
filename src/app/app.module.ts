@@ -28,6 +28,7 @@ import {AlertErrorComponent} from './shared/alert-error/alert-error.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UrlInterceptorService} from './shared/url-interceptor.service';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
+import { UppercasePipe } from './uppercase.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
     Pmd311Component,
     PopupDirective,
     LoaderComponent,
-    AlertErrorComponent
+    AlertErrorComponent,
+    UppercasePipe
   ],
   imports: [
     BrowserModule,

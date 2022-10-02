@@ -45,3 +45,42 @@ $white: #fff;
     }
   }
 }
+
+.user-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $white;
+}
+
+.user-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  border: 3px solid $white;
+  border-radius: 100%;
+}
+
+.user-info-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-img {
+  width: 65px;
+  border-radius: 100%;
+}
+
+.user-fullname {
+  line-height: 23px;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.user-username {
+  text-align: right;
+  color: $white;
+}
+

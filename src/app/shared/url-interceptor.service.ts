@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 
 const BASE_API = 'https://bog-angular-course-api.herokuapp.com/';
 
+// https://bog-angular-course-api.herokuapp.com/clients?firstName=&lastName=&clientKey=
+
 export class UrlInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

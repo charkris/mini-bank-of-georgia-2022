@@ -1,1 +1,2 @@
 <router-outlet></router-outlet>
+<bg-alert-error *ngIf="error" [error]="error" (closeModal)="onCloseModal()" ></bg-alert-error>

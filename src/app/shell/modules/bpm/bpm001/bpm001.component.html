@@ -1,4 +1,4 @@
-<form class="ui segments form">
+<form class="ui segments form" [formGroup]="addClientForm" (ngSubmit)="regClient()">
   <div class="ui segment">
     <h1>კლიენტის რეგისტრაცია</h1>
   </div>
@@ -7,27 +7,40 @@
       <div class="ui field">
         <div class="nine wide field">
           <label>სახელი</label>
-          <input type="text">
+          <input type="text" formControlName="firstName">
+          <p *ngIf="get('firstName').invalid && get('firstName').touched">
+            <ng-container *ngFor="let errorMessage of errors('firstName')">
+              <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+            </ng-container>
+          </p>
         </div>
       </div>
       <div class="ui field">
         <div class="nine wide field">
           <label>გვარი</label>
-          <input type="text">
+          <input type="text" formControlName="lastName">
+          <p *ngIf="get('lastName').invalid && get('lastName').touched">
+            <ng-container *ngFor="let errorMessage of errors('lastName')">
+              <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+            </ng-container>
+          </p>
         </div>
       </div>
       <div class="ui field">
         <div class="nine wide field">
           <label>Plus ქულები</label>
-          <input type="number">
+          <input type="number" formControlName="plusPoints">
         </div>
       </div>
+      <p *ngIf="get('plusPoints').invalid && get('plusPoints').touched">
+        <ng-container *ngFor="let errorMessage of errors('plusPoints')">
+          <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+        </ng-container>
+      </p>
     </div>
   </div>
-
   <div class="ui segment">
     <button type="submit" class="ui orange button">რეგისტრაცია</button>
   </div>
-
 </form>
 
