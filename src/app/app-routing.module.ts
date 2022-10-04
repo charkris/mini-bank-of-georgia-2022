@@ -63,7 +63,7 @@ const routes: Routes = [
             ]
           },
           {
-            path: 'krnicp',
+            path: '',
             component: KrnicpComponent,
           },
           {
@@ -85,6 +85,10 @@ const routes: Routes = [
       }
     ],
   },
+  {
+    path: 'krn/krnicp',
+    component: ShellComponent
+  }
 ];
 
 

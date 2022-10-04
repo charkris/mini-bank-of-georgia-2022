@@ -1,11 +1,11 @@
-<div class="ui segments">
+<div class="ui segments" *ngIf="showFlag">
   <div class="ui segment">
     <h1>ანგარიშები</h1>
   </div>
   <div class="ui segment">
     <div class="table-header">
       <span>ანგარიშები</span>
-      <div class="ui icon button">
+      <div class="ui icon button" (click)="onClick()">
         <i class="icon plus"></i>
       </div>
     </div>

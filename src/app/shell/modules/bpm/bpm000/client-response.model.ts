@@ -1,5 +1,5 @@
-export interface ClientModel {
-  firstname: string;
+export interface ClientResponseModel {
+  firstName: string;
   lastName: string;
   image: string;
   clientKey: number;

@@ -8,13 +8,10 @@ import {Router} from '@angular/router';
 })
 export class KrnicpComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  endSession() {
-    console.log('aaaaaaa');
-    this.router.navigate(['bpm/bpm000']);
-  }
+
 }

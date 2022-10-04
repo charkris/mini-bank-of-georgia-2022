@@ -42,7 +42,7 @@
       <th>კლიენტის უნიკალური</th>
       </thead>
       <tbody>
-      <tr *ngFor="let client of clientsArr" (click)="goToClientHeader()" class="client-list">
+      <tr *ngFor="let client of clientsArr" (click)="goToClientHeader(client.clientKey)" class="client-list">
         <td>{{client.firstName}}</td>
         <td>{{client.lastName}}</td>
         <td>{{client.clientKey}}</td>

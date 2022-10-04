@@ -61,7 +61,7 @@ export class AuthService {
       localStorage.removeItem('userData');
       this.router.navigate(['/auth']);
     }, expDate);
-    // ng on destroy-ში შეიძლება იყოს გასატანი
+    // ng on destroy-ში , წესით არაა ეს ფუნქცია საჭირო
   }
 
   authHandler = (resData: AuthResponseModel) => {

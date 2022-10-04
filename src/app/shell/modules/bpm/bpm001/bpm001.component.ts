@@ -33,26 +33,14 @@ export class Bpm001Component implements OnInit {
     console.log(firstName, lastName, plusPoints);
     this.addClientService.addClient(firstName, lastName, plusPoints).subscribe(
       (resp) => {
-        // console.log(resp);
         this.addClientForm.reset();
+        this.addClientService.showClientHeader = true;
         this.router.navigate(['krn/krnicp']);
-        // this.router.navigate()
       }, (error) => {
         this.error = error;
       }
     );
   }
-
-//
-//   this.authService.registerUser(fullName, userName, password).subscribe(
-// (resData) => {
-//   console.log(resData);
-//   this.registerForm.reset();
-//   this.router.navigate(['/bpm/bpm000']);
-// }, (error) => {
-//   this.error = error;
-// }
-// );
 
   errors(controlName) {
     return this.get(controlName)?.errors

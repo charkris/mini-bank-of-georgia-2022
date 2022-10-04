@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'bg-pmd311',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Pmd311Component implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onClick() {
+    console.log('transfer works');
+    this.router.navigate(['/krn/accounts'])
+  }
 }

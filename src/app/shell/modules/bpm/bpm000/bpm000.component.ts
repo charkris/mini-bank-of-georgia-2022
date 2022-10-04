@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthResponseModel} from '../../../../shared/auth/auth-response.model';
-import {catchError, tap} from 'rxjs/operators';
-import {throwError} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {LoaderService} from '../../../../shared/loader/loader.service';
@@ -52,8 +49,19 @@ export class Bpm000Component implements OnInit {
     this.router.navigate(['/bpm/bpm001']);
   }
 
-  goToClientHeader() {
-    this.router.navigate(['krn/krnicp'])
+  goToClientHeader(clientKey) {
+    console.log(clientKey);
+    this.clientService.getAuthorizedClientInfo(clientKey).subscribe(
+      client => {
+        this.clientService.clientInfo = client;
+        console.log('client from service', this.clientService.clientInfo
+        );
+        this.router.navigate(['krn/krnicp']);
+        this.clientService.showClientHeader = true;
+        console.log('service clientHeader: ', this.clientService.showClientHeader);
+      }
+    );
+
   }
 
   get(controlName) {

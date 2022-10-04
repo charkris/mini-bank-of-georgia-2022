@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'bg-operations',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperationsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onClick() {
+    console.log('works card');
+    this.router.navigate(['/pmd/pmd311']);
+  }
 }

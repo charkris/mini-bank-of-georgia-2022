@@ -1,5 +1,5 @@
-export class AddClientModel {
-  firstname: string;
+export interface AddClientModel {
+  firstName: string;
   lastName: string;
   image: string;
   clientKey: number;
