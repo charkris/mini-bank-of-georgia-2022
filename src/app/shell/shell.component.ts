@@ -1,8 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
-import {ClientService} from './modules/bpm/bpm000/client.service';
-import {isBooleanLiteralLike} from 'codelyzer/util/utils';
-import {AddClientService} from './modules/bpm/bpm001/add-client.service';
+import {ClientService} from '../shared/identify/client.service';
 
 @Component({
   selector: 'bg-shell',
@@ -13,40 +11,41 @@ export class ShellComponent implements OnInit {
 
   showFlag: boolean;
   clientKey: number;
+  clientInfo: any;
 
   get curDate() {
     const d = new Date();
     return `${('0' + d.getDate()).slice(-2)}/${('0' + (d.getMonth() + 1)).slice(-2)}/${d.getFullYear()}`;
   }
 
-  constructor(private router: Router, private clientService: ClientService, private addClientService: AddClientService) {
-
+  constructor(private router: Router, private clientService: ClientService) {
+    // console.log(this.clientInfo.clientKey);
   }
 
   ngOnInit(): void {
-    // this.clientService.getAuthorizedClient(this.clientKey);
-    this.showFlag = this.showContent();
+    this.clientInfo  = JSON.parse(localStorage.getItem('clientInfo'));
+
+    // this.clientService.getAuthorizedClientInfo(this.clientKey).subscribe(
+    //   resp => console.log(resp));
+    if (this.clientInfo) {
+      this.showFlag = this.showContent();
+    }
     // console.log('my show flag: ', this.showFlag);
-    console.log(this.addClientService.client);
   }
 
   endSession() {
-    // console.log('aaaaaaa');
+    localStorage.removeItem('clientInfo');
     this.router.navigate(['bpm/bpm000']);
-    this.clientService.showClientHeader = false;
-    this.addClientService.showClientHeader = false;
+    this.showFlag = false;
   }
 
   showContent() {
     this.showFlag = true;
-    if (! (this.clientService.showClientHeader || this.addClientService.showClientHeader)) {
-      // console.log('clientSer: ', this.clientService.showClientHeader);
-      // console.log('addClientSer: ', this.addClientService.showClientHeader);
+    if (!this.clientService.showClientHeader) {
       this.showFlag = false;
     }
     return this.showFlag;
   }
-
 
 
 }

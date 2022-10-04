@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule} from '@angular/forms';
 import {BGValidators} from '../../../../shared/validators';
-import {AddClientService} from './add-client.service';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {ClientService} from '../../../../shared/identify/client.service';
 
 @Component({
   selector: 'bg-bpm001',
@@ -15,7 +15,7 @@ export class Bpm001Component implements OnInit {
   error;
 
   constructor(private http: HttpClient,
-              private addClientService: AddClientService,
+              private clientService: ClientService,
               private router: Router) {
   }
 
@@ -31,10 +31,10 @@ export class Bpm001Component implements OnInit {
     const lastName = this.get('lastName').value;
     const plusPoints = this.get('plusPoints').value;
     console.log(firstName, lastName, plusPoints);
-    this.addClientService.addClient(firstName, lastName, plusPoints).subscribe(
+    this.clientService.addClient(firstName, lastName, plusPoints).subscribe(
       (resp) => {
         this.addClientForm.reset();
-        this.addClientService.showClientHeader = true;
+        this.clientService.showClientHeader = true;
         this.router.navigate(['krn/krnicp']);
       }, (error) => {
         this.error = error;

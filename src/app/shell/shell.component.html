@@ -7,22 +7,24 @@
         <hr>
       </div>
       <!-- TODO: Show client header here when client is chosen -->
-      <div class="ui segments"  >
+      <div class="ui segments" *ngIf="showFlag">
         <div class="ui segment">
           <div class="client-header-wrapper">
             <div class="client-info-wrapper">
               <img class="header-img" src="https://picsum.photos/200">
               <div class="client-data">
-                <div><b>ქრისტინა ჩარკვიანი</b></div>
-                <div class="client-key">უნიკალური კოდი: <b>319001111</b></div>
+                <div><b>{{ clientInfo.firstName }} {{ clientInfo.lastName }}</b></div>
+                <div class="client-key">უნიკალური კოდი: <b>{{ clientInfo.clientKey }}</b></div>
               </div>
 
             </div>
             <div class="client-assets-wrapper">
               <div class="assets-info">
-                <div class=""><span class="grey-txt">აქტივები: </span><span class="balance">1000000.00</span> <b>GEL</b>
+                <div class=""><span class="grey-txt">აქტივები: </span><span
+                  class="balance">{{ clientInfo?.sumAmount?.toFixed(2) }}</span> <b>GEL</b>
                 </div>
-                <div class=""><span class="grey-txt">Plus:</span> <b class="plus-points">27000</b></div>
+                <div class=""><span class="grey-txt">Plus:</span> <b class="plus-points">{{ clientInfo.plusPoints }}</b>
+                </div>
               </div>
               <div class="logout">
                 <button class="ui red button" (click)="endSession()">გასვლა</button>
@@ -32,17 +34,17 @@
         </div>
 
         <div class="ui horizontal segments navigation">
-          <div class="ui segment focused" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <a routerLink="/krn/krnicp" class="page-link">მთავარი</a>
+          <div class="ui segment focused" routerLinkActive="active" routerLink="/krn/krnicp"
+               [routerLinkActiveOptions]="{exact: true}">
+            <a class="page-link">მთავარი</a>
           </div>
-          <div class="ui segment focused" routerLinkActive="active">
-            <a routerLink="/krn/accounts" class="page-link">ანგარიშები</a>
+          <div class="ui segment focused" routerLinkActive="active" routerLink="/krn/accounts">
+            <a class="page-link">ანგარიშები</a>
           </div>
-          <div class="ui segment focused" routerLinkActive="active">
-            <a routerLink="/krn/operations" class="page-link">ოპერაციები</a>
+          <div class="ui segment focused" routerLinkActive="active" routerLink="/krn/operations">
+            <a class="page-link">ოპერაციები</a>
           </div>
         </div>
-
       </div>
 
       <!-- client header -->

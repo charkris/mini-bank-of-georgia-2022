@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {LoaderService} from '../../../../shared/loader/loader.service';
-import {ClientService} from './client.service';
 import {Router} from '@angular/router';
+import {ClientService} from '../../../../shared/identify/client.service';
 
 @Component({
   selector: 'bg-bpm000',
@@ -27,21 +27,12 @@ export class Bpm000Component implements OnInit {
   }
 
   searchClient() {
-    // console.log('client search works');
     const firstName = this.get('firstName').value;
     const lastName = this.get('lastName').value;
     const clientKey = this.get('clientKey').value;
-    // console.log(firstName, lastName, clientKey);
     this.clientService.fetchClients(firstName, lastName, clientKey).subscribe(client => {
-      // console.log(client);
       this.clientsArr = client;
       this.showFlag = true;
-      // console.log('clientsArr', this.clientsArr);
-      client.map(info => {
-        // console.log(info);
-        // this.clientsArr = info;
-        // console.log(this.clientsArr);
-      });
     });
   }
 
@@ -50,7 +41,6 @@ export class Bpm000Component implements OnInit {
   }
 
   goToClientHeader(clientKey) {
-    console.log(clientKey);
     this.clientService.getAuthorizedClientInfo(clientKey).subscribe(
       client => {
         this.clientService.clientInfo = client;

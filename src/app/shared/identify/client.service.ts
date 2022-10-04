@@ -1,21 +1,20 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ClientResponseModel} from './client-response.model';
-import {catchError, tap} from 'rxjs/operators';
 import {BehaviorSubject, throwError} from 'rxjs';
-import {AddClientService} from '../bpm001/add-client.service';
-import {Clients} from './clients.model';
+import {HttpClient} from '@angular/common/http';
+import {catchError, tap} from 'rxjs/operators';
+import {ClientResponseModel} from './client-response.model';
+import {Client} from './client.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  client = new BehaviorSubject<Clients>(undefined);
-  clientInfo: any;
+  client = new BehaviorSubject<Client>(undefined);
   showClientHeader: boolean;
+  clientInfo: any;
 
-  constructor(private http: HttpClient, private addClientService: AddClientService) {
+  constructor(private http: HttpClient) {
   }
 
   fetchClients(fname, lname, clientKey) {
@@ -29,19 +28,29 @@ export class ClientService {
   }
 
   getAuthorizedClientInfo(clientKey) {
-    console.log('კონკრეტული კლიენტი: ');
     return this.http.get<ClientResponseModel>(`clients?firstName=&lastName=&clientKey=${clientKey}`).pipe(
       catchError((err) => throwError(err.error)),
       tap((resp) => {
-        console.log('this is resp: ', resp);
         this.clientHandler(resp);
       })
     );
   }
 
+  addClient(firstName, lastName, plusPoints) {
+    return this.http.put<ClientResponseModel>('clients', {
+      firstName, lastName, plusPoints
+    }).pipe(
+      // this.loaderService.useLoader,
+      catchError((err) => throwError(err.error)),
+      tap((resData) => this.clientHandler(resData))
+    );
+  }
+
   clientHandler = (resData: ClientResponseModel) => {
-    resData = resData[0];
-    const client = new Clients(
+    if (resData[0]) {
+      resData = resData[0];
+    }
+    const client = new Client(
       resData.firstName,
       resData.lastName,
       resData.image,
