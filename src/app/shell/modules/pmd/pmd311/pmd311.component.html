@@ -1,4 +1,4 @@
-<form class="ui segments form" (ngSubmit)=onClick()>
+<form class="ui segments form" [formGroup]="transForm" (ngSubmit)=onTransfer()>
   <div class="ui segment">
     <h1>თანხის გადარიცხვა</h1>
   </div>
@@ -7,32 +7,51 @@
       <div class="ui field">
         <div class="nine wide field">
           <label>გამგზავნი ანგარიში</label>
-          <select>
+          <select formControlName="senderAccountKey">
             <option>აირჩიე</option>
-            <option>test account 1</option>
+            <option *ngFor="let acct of srcAccounts">
+              {{acct.accountKey}} - {{acct.amount.toFixed(2)}}GEL ({{acct.accountName}})
+            </option>
           </select>
+          <p *ngIf="get('senderAccountKey').invalid && get('senderAccountKey').touched">
+            <ng-container *ngFor="let errorMessage of errors('senderAccountKey')">
+              <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+            </ng-container>
+          </p>
         </div>
       </div>
       <div class="ui field">
         <div class="nine wide field">
           <label>მიმღები ანგარიში</label>
-          <select>
+          <select formControlName="receivedAccountKey">
             <option>აირჩიე</option>
-            <option>test account 2</option>
+            <option *ngFor="let acct of dstAccounts">
+              {{acct.accountKey}} - {{acct.amount.toFixed(2)}}GEL ({{acct.clientFirstName}} {{acct.clientFirstName}})
+            </option>
           </select>
+          <p *ngIf="get('receivedAccountKey').invalid && get('receivedAccountKey').touched">
+            <ng-container *ngFor="let errorMessage of errors('receivedAccountKey')">
+              <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+            </ng-container>
+          </p>
         </div>
       </div>
       <div class="ui field">
         <div class="nine wide field">
           <label>თანხა</label>
-          <input type="number">
+          <input type="number" formControlName="amount">
+          <p *ngIf="get('amount').invalid && get('amount').touched">
+            <ng-container *ngFor="let errorMessage of errors('amount')">
+              <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+            </ng-container>
+          </p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="ui segment">
-    <button type="submit" class="ui orange button" >გადარიცხვა</button>
+    <button type="submit" class="ui orange button">გადარიცხვა</button>
   </div>
 </form>
 

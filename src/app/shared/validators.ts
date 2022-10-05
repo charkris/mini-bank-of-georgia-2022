@@ -33,12 +33,21 @@ export class BGValidators extends Validators {
     };
   }
 
-
   static positiveNumbers(control: AbstractControl): Promise<any> | Observable<any> {
     return new Promise(resolve => {
       Number(control.value) < 0
         ? resolve({onlyPositiveNumbers: 'გთხოვთ შეიყვანოთ მინიმუმ 0'}) : resolve(null);
     });
+  }
+
+  static MatchValidator(pass: string, confPass: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const password = control.get(pass);
+      const confPassword = control.get(confPass);
+      console.log(password.value, confPassword.value);
+      return pass && confPass && password.value !== confPassword.value
+        ? {mismatch: 'პაროლები არ ემთხევვა'} : null;
+    };
   }
 
 }

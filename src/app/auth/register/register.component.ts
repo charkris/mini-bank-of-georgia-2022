@@ -27,11 +27,13 @@ export class RegisterComponent implements OnInit {
       console.log('invalid');
       return;
     }
-    console.log('დარეგისტრირდა');
     const fullName = this.get('fullName').value;
     const userName = this.get('userName').value;
     const password = this.get('password').value;
     const confirmPassword = this.get('confirmPassword').value;
+    if (password !== confirmPassword) {
+      return;
+    }
     console.log(fullName, userName, password, confirmPassword);
     this.authService.registerUser(fullName, userName, password).subscribe(
       (resData) => {
@@ -65,7 +67,10 @@ export class RegisterComponent implements OnInit {
       password: new FormControl(undefined,
         [BGValidators.required, BGValidators.minLength(2), BGValidators.maxLength(30)]),
       confirmPassword: new FormControl(undefined,
-        [BGValidators.required, BGValidators.minLength(2), BGValidators.maxLength(30)])
+        [BGValidators.required, BGValidators.minLength(2), BGValidators.maxLength(30),
+        // BGValidators.MatchValidator('password', 'confirmPassword')
+        ], )
     });
   }
 }
+

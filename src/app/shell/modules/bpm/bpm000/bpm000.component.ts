@@ -44,11 +44,10 @@ export class Bpm000Component implements OnInit {
     this.clientService.getAuthorizedClientInfo(clientKey).subscribe(
       client => {
         this.clientService.clientInfo = client;
-        console.log('client from service', this.clientService.clientInfo
-        );
+        // console.log('client from service', this.clientService.clientInfo);
         this.router.navigate(['krn/krnicp']);
         this.clientService.showClientHeader = true;
-        console.log('service clientHeader: ', this.clientService.showClientHeader);
+        // console.log('service clientHeader: ', this.clientService.showClientHeader);
       }
     );
 

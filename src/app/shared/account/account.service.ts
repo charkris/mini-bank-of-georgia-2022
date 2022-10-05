@@ -23,6 +23,13 @@ export class AccountService {
     );
   }
 
+  getAllAccounts() {
+    return this.http.get<AccountResponseModel[]>('accounts').pipe(
+      catchError((err) => throwError(err.error())
+      )
+    );
+  }
+
   closeAccount(accountKey) {
     return this.http.delete(`accounts?accountKey=${accountKey}`).pipe(
       catchError((err) => throwError(err.error)),
@@ -34,11 +41,18 @@ export class AccountService {
     return this.http.put<AccountResponseModel>('accounts', {
       clientKey, accountName, amount
     }).pipe(
-      catchError(err => throwError(err.error()),
+      catchError(err => throwError(err.error),
         //   tap(resp => console.log(resp))
       )
     );
   }
 
+  transferMoney(senderAccountKey, receiverAccountKey, amount) {
+    return this.http.post('transfer', {
+      senderAccountKey, receiverAccountKey, amount
+    }).pipe(
+      catchError(err => throwError(err.error)),
+    );
+  }
 
 }

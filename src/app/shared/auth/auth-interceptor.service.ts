@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
-import {switchAll, switchMap, take} from 'rxjs/operators';
+import {switchMap, take} from 'rxjs/operators';
 
 @Injectable()
 
@@ -12,7 +12,6 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     return this.authService.user.pipe(
       take(1),
       switchMap((user) => {
@@ -25,8 +24,5 @@ export class AuthInterceptorService implements HttpInterceptor {
         return next.handle(newReq);
       })
     );
-
   }
-
-
 }

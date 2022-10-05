@@ -14,7 +14,6 @@ export class ShellHeaderComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   onLogout() {
-    console.log('asdasd');
     this.authService.logout();
   }
   // endSession() {

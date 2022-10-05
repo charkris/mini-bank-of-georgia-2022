@@ -1,4 +1,4 @@
-<form class="ui segments form" (ngSubmit)=onClick()>
+<form class="ui segments form" [formGroup]="accountForm"  (ngSubmit)=addAcount()>
   <div class="ui segment">
     <h1>ანგარიშის შექმნა</h1>
   </div>
@@ -7,19 +7,29 @@
       <div class="ui field">
         <div class="nine wide field">
           <label>ანგარიშის სახელი</label>
-          <input type="text">
+          <input type="text" formControlName="accountName">
+          <p *ngIf="get('accountName').invalid && get('accountName').touched">
+            <ng-container *ngFor="let errorMessage of errors('accountName')">
+              <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+            </ng-container>
+          </p>
         </div>
       </div>
       <div class="ui field">
         <div class="nine wide field">
           <label>თანხა</label>
-          <input type="number">
+          <input type="number" formControlName="amount">
+          <p *ngIf="get('amount').invalid && get('amount').touched">
+            <ng-container *ngFor="let errorMessage of errors('amount')">
+              <span *ngIf="errorMessage !== true">{{ errorMessage }}</span>
+            </ng-container>
+          </p>
         </div>
       </div>
     </div>
   </div>
   <div class="ui segment">
-    <button type="submit" class="ui orange button"  >შექმნა</button>
+    <button type="submit" class="ui orange button">შექმნა</button>
   </div>
 </form>
 

@@ -20,13 +20,20 @@ export class ShellComponent implements OnInit {
 
   constructor(private router: Router, private clientService: ClientService) {
     // console.log(this.clientInfo.clientKey);
+    this.clientService.client.subscribe(resp => {
+      console.log('constr resp:', resp);
+    });
   }
 
   ngOnInit(): void {
-    this.clientInfo  = JSON.parse(localStorage.getItem('clientInfo'));
+    // JSON.parse(localStorage.getItem('clientInfo'));
+    console.log('my subj: ', this.clientService.client.value);
+    this.clientInfo = this.clientService.client.value;
 
-    // this.clientService.getAuthorizedClientInfo(this.clientKey).subscribe(
-    //   resp => console.log(resp));
+     // this.clientService.fetchClients(this.clientInfo.firstName, this.clientInfo.lastName, this.clientInfo.clientKey).subscribe(
+     //  resp => {
+     //    console.log(resp);
+     //  });
     if (this.clientInfo) {
       this.showFlag = this.showContent();
     }

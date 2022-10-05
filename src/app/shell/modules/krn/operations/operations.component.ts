@@ -14,7 +14,6 @@ export class OperationsComponent implements OnInit {
   }
 
   onClick() {
-    console.log('works card');
     this.router.navigate(['/pmd/pmd311']);
   }
 }
