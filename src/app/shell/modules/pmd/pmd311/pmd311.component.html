@@ -8,7 +8,7 @@
         <div class="nine wide field">
           <label>გამგზავნი ანგარიში</label>
           <select formControlName="senderAccountKey">
-            <option>აირჩიე</option>
+            <option value="აირჩიე"></option>
             <option *ngFor="let acct of srcAccounts">
               {{acct.accountKey}} - {{acct.amount.toFixed(2)}}GEL ({{acct.accountName}})
             </option>
@@ -24,7 +24,7 @@
         <div class="nine wide field">
           <label>მიმღები ანგარიში</label>
           <select formControlName="receivedAccountKey">
-            <option>აირჩიე</option>
+            <option value="აირჩიე"></option>
             <option *ngFor="let acct of dstAccounts">
               {{acct.accountKey}} - {{acct.amount.toFixed(2)}}GEL ({{acct.clientFirstName}} {{acct.clientFirstName}})
             </option>

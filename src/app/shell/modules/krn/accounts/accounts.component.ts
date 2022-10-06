@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from '../../../../shared/account/account.service';
 import {any} from 'codelyzer/util/function';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'bg-accounts',
@@ -10,20 +11,23 @@ import {any} from 'codelyzer/util/function';
 })
 
 
-export class AccountsComponent implements OnInit {
-  showFlag = true;
+export class AccountsComponent implements OnInit, OnDestroy {
   clientKey: number;
   accounts: any;
+  showFlag: any;
 
-  constructor(private router: Router, private accountService: AccountService) {
+  mySubscrip: Subscription;
+
+  constructor(private router: Router, private accountService: AccountService, private activeRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
-    this.accountService.getAccounts(this.clientKey).subscribe(resp => {
-      // console.log(resp);
-      this.accounts = resp;
-    });
+    this.showFlag = true;
+    this.accountService.showAcctList.subscribe(
+      res => this.showFlag = res,
+    );
+    this.accountList();
+
   }
 
   onClick() {
@@ -34,9 +38,21 @@ export class AccountsComponent implements OnInit {
   onDelete(acctKey) {
     this.accountService.closeAccount(acctKey).subscribe(
       resp => {
-        // console.log(resp);
+        console.log(resp);
         this.accounts.splice(this.accounts.indexOf(resp), 1);
       }
     );
+  }
+
+  accountList() {
+    this.clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
+    this.mySubscrip = this.accountService.getAccounts(this.clientKey).subscribe(resp => {
+      // console.log(resp);
+      this.accounts = resp;
+    });
+  }
+
+  ngOnDestroy() {
+    this.mySubscrip.unsubscribe();
   }
 }

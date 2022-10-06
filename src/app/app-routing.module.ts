@@ -14,6 +14,7 @@ import {OperationsComponent} from './shell/modules/krn/operations/operations.com
 import {LoginComponent} from './auth/login/login.component';
 import {PmdComponent} from './shell/modules/pmd/pmd.component';
 import {Pmd311Component} from './shell/modules/pmd/pmd311/pmd311.component';
+import {AuthGuard} from './shared/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
   {
     path: '',
     component: ShellComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'bpm',
@@ -87,7 +89,8 @@ const routes: Routes = [
   },
   {
     path: 'krn/krnicp',
-    component: ShellComponent
+    component: ShellComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

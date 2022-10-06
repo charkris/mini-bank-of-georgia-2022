@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../../../shared/validators';
 import {AccountService} from '../../../../shared/account/account.service';
@@ -16,7 +16,7 @@ export class Pmd311Component implements OnInit {
   dstAccounts: any;
   clientKey: number;
 
-  constructor(private router: Router, private accountService: AccountService) {
+  constructor(private router: Router, private accountService: AccountService, private activeRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -34,14 +34,13 @@ export class Pmd311Component implements OnInit {
     if (this.transForm.invalid) {
       return;
     }
-    console.log('transfer works');
     const srcAcctInfo = this.get('senderAccountKey').value.split(' ');
     const dstAcctInfo = this.get('receivedAccountKey').value.split(' ');
 
     const senderAccountKey = Number(srcAcctInfo[0].trim());
     const receiverAccountKey = Number(dstAcctInfo[0].trim());
 
-    const srcAcctBal = Number(srcAcctInfo[2].replace('GEL', ''));
+    const srcAcctBal = Number(srcAcctInfo[2]?.replace('GEL', ''));
     const amount = Number(this.get('amount').value);
     if (amount > srcAcctBal) {
       console.log('ანგარიშზე არ არის საკმარისი თანხა');

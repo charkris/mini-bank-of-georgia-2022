@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, FormsModule} from '@angular/forms';
 import {BGValidators} from '../../../../../shared/validators';
 import {error} from 'protractor';
@@ -14,7 +14,7 @@ export class CreateAccountComponent implements OnInit {
 
   accountForm: FormGroup;
 
-  constructor(private router: Router, private accountService: AccountService) {
+  constructor(private router: Router, private accountService: AccountService, private activeRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class CreateAccountComponent implements OnInit {
     if (this.accountForm.invalid) {
       return;
     }
-    console.log('account add works');
+    this.accountService.showAcctList.next(true);
     const clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
     const acctName = this.get('accountName').value;
     const acctBal = this.get('amount').value;

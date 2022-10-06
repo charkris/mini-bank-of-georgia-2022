@@ -34,10 +34,8 @@ export class RegisterComponent implements OnInit {
     if (password !== confirmPassword) {
       return;
     }
-    console.log(fullName, userName, password, confirmPassword);
     this.authService.registerUser(fullName, userName, password).subscribe(
       (resData) => {
-        console.log(resData);
         this.registerForm.reset();
         this.router.navigate(['/bpm/bpm000']);
       }, (error) => {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../../../shared/validators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -30,7 +30,6 @@ export class Bpm001Component implements OnInit {
     const firstName = this.get('firstName').value;
     const lastName = this.get('lastName').value;
     const plusPoints = this.get('plusPoints').value;
-    console.log(firstName, lastName, plusPoints);
     this.clientService.addClient(firstName, lastName, plusPoints).subscribe(
       (resp) => {
         this.addClientForm.reset();

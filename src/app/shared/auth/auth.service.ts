@@ -15,6 +15,7 @@ export class AuthService {
 
   user = new BehaviorSubject<User>(undefined);
   loggedError = new BehaviorSubject<string>(undefined);
+  isLoggedIn = !!localStorage.getItem('userData');
   private timer: any;
 
   constructor(private http: HttpClient, private loaderService: LoaderService, private router: Router) {
@@ -22,6 +23,7 @@ export class AuthService {
 
   registerUser(name, username, password) {
     // this.autoLogout(Math.min(300000));
+    this.isLoggedIn = true;
     return this.http.post<AuthResponseModel>('register', {
       name,
       username,
@@ -35,6 +37,7 @@ export class AuthService {
 
   login(username, password) {
     // this.autoLogout(Math.min(300000));
+    this.isLoggedIn = true;
     return this.http.post<AuthResponseModel>('login', {
       username, password
     }).pipe(
@@ -47,6 +50,7 @@ export class AuthService {
   }
 
   logout() {
+    this.isLoggedIn = false;
     this.user.next(undefined);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
@@ -55,6 +59,14 @@ export class AuthService {
       clearTimeout(this.timer);
     }
     this.timer = undefined;
+  }
+
+  isAuthorized() {
+    const promise = new Promise((resolve, reject) =>
+      setTimeout(() => {
+        resolve(this.isLoggedIn);
+      }));
+    return promise;
   }
 
   autoLogout(expDate) {

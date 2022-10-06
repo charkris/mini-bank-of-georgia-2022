@@ -28,7 +28,9 @@ import {AlertErrorComponent} from './shared/alert-error/alert-error.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UrlInterceptorService} from './shared/url-interceptor.service';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
-import { UppercasePipe } from './uppercase.pipe';
+import {UppercasePipe} from './uppercase.pipe';
+import {AuthGuard} from './shared/auth/auth.guard';
+import {AuthService} from './shared/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { UppercasePipe } from './uppercase.pipe';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    AuthService, AuthGuard,
   ],
   bootstrap: [AppComponent]
 })
