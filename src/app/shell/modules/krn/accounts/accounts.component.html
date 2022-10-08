@@ -17,10 +17,10 @@
       <th></th>
       </thead>
       <tbody>
-      <tr *ngFor="let account of accounts; let i=index">
+      <tr *ngFor="let account of accountService.acctList; let i=index">
         <td>{{account.clientFirstName}} {{account.clientLastName}}</td>
         <td>{{account.accountName}}</td>
-        <td>{{account.amount.toFixed(2)}}</td>
+        <td>{{account.amount | floatnum }}</td>
         <td>
           <i class="icon trash" (click)="onDelete(account.accountKey)"></i>
         </td>

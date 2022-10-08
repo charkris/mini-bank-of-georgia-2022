@@ -15,6 +15,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {PmdComponent} from './shell/modules/pmd/pmd.component';
 import {Pmd311Component} from './shell/modules/pmd/pmd311/pmd311.component';
 import {AuthGuard} from './shared/auth/auth.guard';
+import {IdentifyGuard} from './shared/identify/identify.guard';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ const routes: Routes = [
       {
         path: 'krn',
         component: KrnComponent,
+        canActivate: [IdentifyGuard],
         children: [
           {
             path: 'accounts',
@@ -65,7 +67,7 @@ const routes: Routes = [
             ]
           },
           {
-            path: '',
+            path: 'krnicp',
             component: KrnicpComponent,
           },
           {
@@ -78,6 +80,7 @@ const routes: Routes = [
       {
         path: 'pmd',
         component: PmdComponent,
+        canActivate: [IdentifyGuard],
         children: [
           {
             path: 'pmd311',
@@ -87,11 +90,6 @@ const routes: Routes = [
       }
     ],
   },
-  {
-    path: 'krn/krnicp',
-    component: ShellComponent,
-    canActivate: [AuthGuard]
-  }
 ];
 
 

@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {PopupDirective} from './popup.directive';
+import {Component} from '@angular/core';
 import {AuthService} from '../../shared/auth/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'bg-shell-header',
@@ -11,13 +9,10 @@ import {Router} from '@angular/router';
 
 export class ShellHeaderComponent {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   onLogout() {
     this.authService.logout();
   }
-  // endSession() {
-  //   console.log('aaaaaaa');
-  //   this.router.navigate(['/bpm/bpm000']);
-  // }
+
 }

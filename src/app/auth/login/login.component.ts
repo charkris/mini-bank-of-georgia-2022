@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
     }
     const username = this.get('userName').value;
     const password = this.get('password').value;
-    // console.log(username, password);
     this.authService.login(username, password).subscribe(
       (resData) => {
         // console.log(resData);
@@ -36,16 +35,6 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-  onInput(inp) {
-    // console.log((inp.target as HTMLInputElement).value);
-    // console.log(this.loginForm.get('userName'));
-    // console.log('same', this.get('userName'));
-  }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log(changes);
-  // }
 
   get(controlName) {
     return this.loginForm.get(controlName);

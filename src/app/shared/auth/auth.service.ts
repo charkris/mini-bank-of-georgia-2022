@@ -22,7 +22,6 @@ export class AuthService {
   }
 
   registerUser(name, username, password) {
-    // this.autoLogout(Math.min(300000));
     this.isLoggedIn = true;
     return this.http.post<AuthResponseModel>('register', {
       name,
@@ -36,7 +35,6 @@ export class AuthService {
   }
 
   login(username, password) {
-    // this.autoLogout(Math.min(300000));
     this.isLoggedIn = true;
     return this.http.post<AuthResponseModel>('login', {
       username, password
@@ -59,14 +57,6 @@ export class AuthService {
       clearTimeout(this.timer);
     }
     this.timer = undefined;
-  }
-
-  isAuthorized() {
-    const promise = new Promise((resolve, reject) =>
-      setTimeout(() => {
-        resolve(this.isLoggedIn);
-      }));
-    return promise;
   }
 
   autoLogout(expDate) {

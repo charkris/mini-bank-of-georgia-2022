@@ -30,7 +30,8 @@ import {UrlInterceptorService} from './shared/url-interceptor.service';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
 import {UppercasePipe} from './uppercase.pipe';
 import {AuthGuard} from './shared/auth/auth.guard';
-import {AuthService} from './shared/auth/auth.service';
+import {IdentifyGuard} from './shared/identify/identify.guard';
+import { FloatnumPipe } from './floatnum.pipe';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {AuthService} from './shared/auth/auth.service';
     PopupDirective,
     LoaderComponent,
     AlertErrorComponent,
-    UppercasePipe
+    UppercasePipe,
+    FloatnumPipe
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,7 @@ import {AuthService} from './shared/auth/auth.service';
       useClass: AuthInterceptorService,
       multi: true
     },
-    AuthService, AuthGuard,
+    AuthGuard, IdentifyGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -10,7 +10,7 @@
           <select formControlName="senderAccountKey">
             <option value="აირჩიე"></option>
             <option *ngFor="let acct of srcAccounts">
-              {{acct.accountKey}} - {{acct.amount.toFixed(2)}}GEL ({{acct.accountName}})
+              {{acct.accountKey}} - {{acct.amount | floatnum}}GEL ({{acct.accountName}})
             </option>
           </select>
           <p *ngIf="get('senderAccountKey').invalid && get('senderAccountKey').touched">
@@ -26,7 +26,7 @@
           <select formControlName="receivedAccountKey">
             <option value="აირჩიე"></option>
             <option *ngFor="let acct of dstAccounts">
-              {{acct.accountKey}} - {{acct.amount.toFixed(2)}}GEL ({{acct.clientFirstName}} {{acct.clientFirstName}})
+              {{acct.accountKey}} - {{acct.amount | floatnum}}GEL ({{acct.clientFirstName}} {{acct.clientFirstName}})
             </option>
           </select>
           <p *ngIf="get('receivedAccountKey').invalid && get('receivedAccountKey').touched">

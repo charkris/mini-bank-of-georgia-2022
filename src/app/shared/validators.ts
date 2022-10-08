@@ -1,4 +1,4 @@
-import {Validators as NGValidators, AbstractControl, FormControl, Validators, ValidatorFn, ValidationErrors} from '@angular/forms';
+import {AbstractControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 
 export class BGValidators extends Validators {

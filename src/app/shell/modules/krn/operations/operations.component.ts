@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {LoaderService} from '../../../../shared/loader/loader.service';
 
 @Component({
   selector: 'bg-operations',
@@ -8,7 +9,8 @@ import {Router} from '@angular/router';
 })
 export class OperationsComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private loader: LoaderService) {
+  }
 
   ngOnInit(): void {
   }
@@ -16,4 +18,5 @@ export class OperationsComponent implements OnInit {
   onClick() {
     this.router.navigate(['/pmd/pmd311']);
   }
+
 }

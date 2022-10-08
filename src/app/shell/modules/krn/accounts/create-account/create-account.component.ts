@@ -1,8 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormControl, FormGroup, FormsModule} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../../../../shared/validators';
-import {error} from 'protractor';
 import {AccountService} from '../../../../../shared/account/account.service';
 
 @Component({
@@ -14,7 +13,7 @@ export class CreateAccountComponent implements OnInit {
 
   accountForm: FormGroup;
 
-  constructor(private router: Router, private accountService: AccountService, private activeRoute: ActivatedRoute) {
+  constructor(private router: Router, private accountService: AccountService) {
   }
 
   ngOnInit(): void {
@@ -30,9 +29,13 @@ export class CreateAccountComponent implements OnInit {
     const acctName = this.get('accountName').value;
     const acctBal = this.get('amount').value;
     this.accountService.openAccount(clientKey, acctName, acctBal).subscribe(
-      // resp => console.log(resp)
+      resp => this.accountService.getAccounts(clientKey).subscribe(
+        result => {
+          this.accountService.acctList = result;
+        }
+      )
     );
-    this.router.navigate(['krn/accounts']);
+    this.router.navigate(['/krn/accounts']);
   }
 
   get(controlName) {
@@ -51,7 +54,7 @@ export class CreateAccountComponent implements OnInit {
         amount: new FormControl(undefined, [BGValidators.required], BGValidators.positiveNumbers)
       }
     );
-
   }
+
 
 }

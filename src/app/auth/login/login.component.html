@@ -1,7 +1,7 @@
 <form class="ui form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
   <div class="field">
     <div class="ui left icon input">
-      <input type="text" placeholder="მომხმარებელი" formControlName="userName" (input)="onInput($event)"><i
+      <input type="text" placeholder="მომხმარებელი" formControlName="userName"><i
       class="user icon"></i>
     </div>
     <p *ngIf="get('userName').invalid && get('userName').touched">

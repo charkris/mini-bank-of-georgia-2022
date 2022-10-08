@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../shared/validators';
 import {AuthService} from '../../shared/auth/auth.service';
-import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 @Component({

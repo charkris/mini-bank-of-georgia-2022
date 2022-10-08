@@ -1,20 +1,20 @@
-<div class="ui segments"  >
+<div class="ui segments"  *ngIf="clientService.isIdentified" >
   <div class="ui segment">
     <div class="client-header-wrapper">
       <div class="client-info-wrapper">
-        <img class="header-img" src="https://picsum.photos/200">
+        <img class="header-img" src="{{clientService.clientInfo.image}}">
         <div class="client-data">
-          <div><b>{{ clientInfo.firstName }} {{ clientInfo.lastName }}</b></div>
-          <div class="client-key">უნიკალური კოდი: <b>{{ clientInfo.clientKey }}</b></div>
+          <div><b>{{ clientService.clientInfo.firstName }} {{ clientService.clientInfo.lastName }}</b></div>
+          <div class="client-key">უნიკალური კოდი: <b>{{ clientService.clientInfo.clientKey }}</b></div>
         </div>
 
       </div>
       <div class="client-assets-wrapper">
         <div class="assets-info">
           <div class=""><span class="grey-txt">აქტივები: </span><span
-            class="balance">{{ clientInfo?.sumAmount?.toFixed(2) }}</span> <b>GEL</b>
+            class="balance">{{ clientService.clientInfo.sumAmount | floatnum }}</span> <b>GEL</b>
           </div>
-          <div class=""><span class="grey-txt">Plus:</span> <b class="plus-points">{{ clientInfo.plusPoints }}</b>
+          <div class=""><span class="grey-txt">Plus:</span> <b class="plus-points">{{ clientService.clientInfo.plusPoints }}</b>
           </div>
         </div>
         <div class="logout">

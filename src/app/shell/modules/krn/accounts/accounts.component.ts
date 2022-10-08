@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AccountService} from '../../../../shared/account/account.service';
-import {any} from 'codelyzer/util/function';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -12,13 +11,13 @@ import {Subscription} from 'rxjs';
 
 
 export class AccountsComponent implements OnInit, OnDestroy {
-  clientKey: number;
+  clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
   accounts: any;
   showFlag: any;
 
   mySubscrip: Subscription;
 
-  constructor(private router: Router, private accountService: AccountService, private activeRoute: ActivatedRoute) {
+  constructor(private router: Router, public accountService: AccountService) {
   }
 
   ngOnInit(): void {
@@ -27,7 +26,6 @@ export class AccountsComponent implements OnInit, OnDestroy {
       res => this.showFlag = res,
     );
     this.accountList();
-
   }
 
   onClick() {
@@ -36,20 +34,22 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   onDelete(acctKey) {
-    this.accountService.closeAccount(acctKey).subscribe(
+    this.mySubscrip = this.accountService.closeAccount(acctKey).subscribe(
       resp => {
-        console.log(resp);
-        this.accounts.splice(this.accounts.indexOf(resp), 1);
+        this.accountService.getAccounts(this.clientKey).subscribe(
+          accList => this.accountService.acctList = accList,
+        );
+        return this.accountService.acctList;
       }
     );
   }
 
   accountList() {
-    this.clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
-    this.mySubscrip = this.accountService.getAccounts(this.clientKey).subscribe(resp => {
-      // console.log(resp);
-      this.accounts = resp;
-    });
+    this.mySubscrip = this.accountService.getAccounts(this.clientKey)
+      .subscribe(resp => {
+        this.accountService.acctList = resp;
+      });
+    return this.accountService.acctList;
   }
 
   ngOnDestroy() {

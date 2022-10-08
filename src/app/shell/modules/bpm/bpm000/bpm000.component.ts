@@ -30,10 +30,11 @@ export class Bpm000Component implements OnInit {
     const firstName = this.get('firstName').value;
     const lastName = this.get('lastName').value;
     const clientKey = this.get('clientKey').value;
-    this.clientService.fetchClients(firstName, lastName, clientKey).subscribe(client => {
-      this.clientsArr = client;
-      this.showFlag = true;
-    });
+    this.clientService.fetchClients(firstName, lastName, clientKey)
+      .subscribe(client => {
+        this.clientsArr = client;
+        this.showFlag = true;
+      });
   }
 
   goToRegister() {
@@ -41,16 +42,14 @@ export class Bpm000Component implements OnInit {
   }
 
   goToClientHeader(clientKey) {
+    // this.clientService.clientKey = clientKey;
     this.clientService.getAuthorizedClientInfo(clientKey).subscribe(
       client => {
         this.clientService.clientInfo = client;
-        // console.log('client from service', this.clientService.clientInfo);
-        this.router.navigate(['krn/krnicp']);
-        this.clientService.showClientHeader = true;
-        // console.log('service clientHeader: ', this.clientService.showClientHeader);
+        this.clientService.isIdentified = true;
+        this.router.navigate(['/krn/krnicp']);
       }
     );
-
   }
 
   get(controlName) {

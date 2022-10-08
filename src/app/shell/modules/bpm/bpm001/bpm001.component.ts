@@ -33,8 +33,9 @@ export class Bpm001Component implements OnInit {
     this.clientService.addClient(firstName, lastName, plusPoints).subscribe(
       (resp) => {
         this.addClientForm.reset();
-        this.clientService.showClientHeader = true;
-        this.router.navigate(['krn/krnicp']);
+        this.clientService.clientInfo = resp;
+        this.clientService.isIdentified = true;
+        this.router.navigate(['/krn/krnicp']);
       }, (error) => {
         this.error = error;
       }

@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../../../shared/validators';
 import {AccountService} from '../../../../shared/account/account.service';
-import {AccountResponseModel} from '../../../../shared/account/account-response.model';
 
 @Component({
   selector: 'bg-pmd311',
@@ -16,7 +15,7 @@ export class Pmd311Component implements OnInit {
   dstAccounts: any;
   clientKey: number;
 
-  constructor(private router: Router, private accountService: AccountService, private activeRoute: ActivatedRoute) {
+  constructor(private router: Router, private accountService: AccountService) {
   }
 
   ngOnInit(): void {
@@ -34,19 +33,22 @@ export class Pmd311Component implements OnInit {
     if (this.transForm.invalid) {
       return;
     }
+    const clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
     const srcAcctInfo = this.get('senderAccountKey').value.split(' ');
     const dstAcctInfo = this.get('receivedAccountKey').value.split(' ');
-
     const senderAccountKey = Number(srcAcctInfo[0].trim());
     const receiverAccountKey = Number(dstAcctInfo[0].trim());
-
     const srcAcctBal = Number(srcAcctInfo[2]?.replace('GEL', ''));
     const amount = Number(this.get('amount').value);
+
     if (amount > srcAcctBal) {
       console.log('ანგარიშზე არ არის საკმარისი თანხა');
       return;
     }
     this.accountService.transferMoney(senderAccountKey, receiverAccountKey, amount).subscribe(
+      resp => this.accountService.getAccounts(clientKey).subscribe(
+        acctList => this.accountService.acctList = acctList,
+      ),
     );
     this.router.navigate(['/krn/accounts']);
   }
