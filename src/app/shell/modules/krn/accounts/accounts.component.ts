@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AccountService} from '../../../../shared/account/account.service';
 import {Subscription} from 'rxjs';
+import {ClientService} from '../../../../shared/identify/client.service';
 
 @Component({
   selector: 'bg-accounts',
@@ -17,13 +18,17 @@ export class AccountsComponent implements OnInit, OnDestroy {
 
   mySubscrip: Subscription;
 
-  constructor(private router: Router, public accountService: AccountService) {
+  constructor(private router: Router,
+              public accountService: AccountService,
+              private clientService: ClientService) {
   }
 
   ngOnInit(): void {
     this.showFlag = true;
     this.accountService.showAcctList.subscribe(
-      res => this.showFlag = res,
+      res => {
+        this.showFlag = res;
+      }
     );
     this.accountList();
   }
@@ -39,6 +44,11 @@ export class AccountsComponent implements OnInit, OnDestroy {
         this.accountService.getAccounts(this.clientKey).subscribe(
           accList => this.accountService.acctList = accList,
         );
+        this.clientService.getAuthorizedClientInfo(this.clientKey).subscribe(
+          client => {
+            this.clientService.clientInfo = client[0];
+          }
+        );
         return this.accountService.acctList;
       }
     );
@@ -47,12 +57,18 @@ export class AccountsComponent implements OnInit, OnDestroy {
   accountList() {
     this.mySubscrip = this.accountService.getAccounts(this.clientKey)
       .subscribe(resp => {
-        this.accountService.acctList = resp;
-      });
+          this.accountService.acctList = resp;
+          this.clientService.getAuthorizedClientInfo(this.clientKey).subscribe(
+            client => {
+              this.clientService.clientInfo = client[0];
+            }
+          );
+        }
+      );
     return this.accountService.acctList;
   }
 
   ngOnDestroy() {
-    this.mySubscrip.unsubscribe();
+    // this.mySubscrip.unsubscribe();
   }
 }

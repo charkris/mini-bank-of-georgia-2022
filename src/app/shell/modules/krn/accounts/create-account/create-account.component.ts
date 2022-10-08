@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../../../../shared/validators';
 import {AccountService} from '../../../../../shared/account/account.service';
+import {ClientService} from '../../../../../shared/identify/client.service';
 
 @Component({
   selector: 'bg-create-account',
@@ -13,7 +14,9 @@ export class CreateAccountComponent implements OnInit {
 
   accountForm: FormGroup;
 
-  constructor(private router: Router, private accountService: AccountService) {
+  constructor(private router: Router,
+              private accountService: AccountService,
+              private clientService: ClientService) {
   }
 
   ngOnInit(): void {
@@ -32,6 +35,11 @@ export class CreateAccountComponent implements OnInit {
       resp => this.accountService.getAccounts(clientKey).subscribe(
         result => {
           this.accountService.acctList = result;
+          this.clientService.getAuthorizedClientInfo(clientKey).subscribe(
+            client => {
+              this.clientService.clientInfo = client[0];
+            }
+          );
         }
       )
     );

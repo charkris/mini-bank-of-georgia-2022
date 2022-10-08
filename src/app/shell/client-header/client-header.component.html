@@ -1,4 +1,4 @@
-<div class="ui segments"  *ngIf="clientService.isIdentified" >
+<div class="ui segments" *ngIf="clientService.isIdentified">
   <div class="ui segment">
     <div class="client-header-wrapper">
       <div class="client-info-wrapper">
@@ -14,7 +14,8 @@
           <div class=""><span class="grey-txt">აქტივები: </span><span
             class="balance">{{ clientService.clientInfo.sumAmount | floatnum }}</span> <b>GEL</b>
           </div>
-          <div class=""><span class="grey-txt">Plus:</span> <b class="plus-points">{{ clientService.clientInfo.plusPoints }}</b>
+          <div class=""><span class="grey-txt">Plus:</span> <b
+            class="plus-points">{{ clientService.clientInfo.plusPoints }}</b>
           </div>
         </div>
         <div class="logout">

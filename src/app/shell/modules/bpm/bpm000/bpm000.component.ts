@@ -42,10 +42,9 @@ export class Bpm000Component implements OnInit {
   }
 
   goToClientHeader(clientKey) {
-    // this.clientService.clientKey = clientKey;
     this.clientService.getAuthorizedClientInfo(clientKey).subscribe(
       client => {
-        this.clientService.clientInfo = client;
+        this.clientService.clientInfo = client[0];
         this.clientService.isIdentified = true;
         this.router.navigate(['/krn/krnicp']);
       }
