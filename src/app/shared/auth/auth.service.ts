@@ -65,12 +65,10 @@ export class AuthService {
     this.timer = undefined;
   }
 
-  autoLogout(expDate) {
-    this.timer = setTimeout(() => {
-      localStorage.removeItem('userData');
-      this.router.navigate(['/auth']);
-    }, expDate);
-    // ng on destroy-ში , წესით არაა ეს ფუნქცია საჭირო
+  autoLogout(expDate: number) {
+    this.timer = setTimeout(
+      () => this.logout(), Math.min(1800000, expDate)
+    );
   }
 
   authHandler = (resData: AuthResponseModel) => {
@@ -83,7 +81,7 @@ export class AuthService {
     );
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
-    // auto logout
+    this.autoLogout(resData.expirationDate - new Date().getTime());
   };
 
 }

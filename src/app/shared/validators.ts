@@ -1,4 +1,4 @@
-import {AbstractControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 
 export class BGValidators extends Validators {
@@ -40,15 +40,18 @@ export class BGValidators extends Validators {
     });
   }
 
-  // static MatchValidator(pass: string, confPass: string) {
-  //   return (control: AbstractControl) => {
-  //     const password = control.get(pass)?.value;
-  //     const confPassword = control.get(confPass)?.value;
-  //     console.log(password, confPassword);
-  //     return pass && confPass && password !== confPassword
-  //       ? {mismatch: 'პაროლები არ ემთხევვა'} : null;
-  //   };
-  // }
-
+  static passMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        return;
+      }
+      control.value !== matchingControl.value
+        ? matchingControl.setErrors({mustMatch: 'პაროლები არ ემთხვევა'})
+        : matchingControl.setErrors(null);
+      return null;
+    };
+  }
 
 }
