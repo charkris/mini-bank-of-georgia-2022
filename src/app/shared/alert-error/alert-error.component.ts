@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AlertService} from './alert.service';
 
 @Component({
   selector: 'bg-alert-error',
@@ -6,16 +7,19 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./alert-error.component.scss']
 })
 export class AlertErrorComponent implements OnInit {
-  @Input() error;
-  @Output() closeModal = new EventEmitter<void>();
+  error;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private alertService: AlertService) {
   }
 
-  onClose() {
-      this.closeModal.emit();
+  ngOnInit(): void {
+    this.alertService.loggedError.subscribe((err) => {
+      this.error = err;
+    });
+  }
+
+  onCloseModal() {
+    this.error = undefined;
   }
 
 }

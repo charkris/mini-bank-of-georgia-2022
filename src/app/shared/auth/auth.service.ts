@@ -1,4 +1,4 @@
-import {ApplicationInitStatus, Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject, throwError} from 'rxjs';
@@ -6,7 +6,8 @@ import {User} from './user.model';
 import {LoaderService} from '../loader/loader.service';
 import {AuthResponseModel} from './auth-response.model';
 import {catchError, tap} from 'rxjs/operators';
-import {error} from 'protractor';
+import {ClientService} from '../identify/client.service';
+import {AlertService} from '../alert-error/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,14 @@ import {error} from 'protractor';
 export class AuthService {
 
   user = new BehaviorSubject<User>(undefined);
-  loggedError = new BehaviorSubject<string>(undefined);
   isLoggedIn = !!localStorage.getItem('userData');
   private timer: any;
 
-  constructor(private http: HttpClient, private loaderService: LoaderService, private router: Router) {
+  constructor(private http: HttpClient,
+              private loaderService: LoaderService,
+              private router: Router,
+              private clientService: ClientService,
+              private alertService: AlertService) {
   }
 
   registerUser(name, username, password) {
@@ -29,8 +33,9 @@ export class AuthService {
       password,
     }).pipe(
       this.loaderService.useLoader,
-      catchError((err) => throwError(err.error)),
-      tap((resData) => this.authHandler(resData))
+      catchError((err) => throwError(this.alertService.loggedError.next(err.error)),
+      ),
+      tap((resData) => this.authHandler(resData)),
     );
   }
 
@@ -41,7 +46,7 @@ export class AuthService {
     }).pipe(
       this.loaderService.useLoader,
       catchError((err) =>
-        throwError(this.loggedError.next(err.error)),
+        throwError(this.alertService.loggedError.next(err.error)),
       ),
       tap((resData) => this.authHandler(resData))
     );
@@ -53,6 +58,7 @@ export class AuthService {
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     localStorage.removeItem('clientInfo');
+    this.clientService.isIdentified = false;
     if (this.timer) {
       clearTimeout(this.timer);
     }

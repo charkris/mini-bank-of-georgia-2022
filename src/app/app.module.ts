@@ -28,7 +28,6 @@ import {AlertErrorComponent} from './shared/alert-error/alert-error.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UrlInterceptorService} from './shared/url-interceptor.service';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
-import {UppercasePipe} from './uppercase.pipe';
 import {AuthGuard} from './shared/auth/auth.guard';
 import {IdentifyGuard} from './shared/identify/identify.guard';
 import { FloatnumPipe } from './floatnum.pipe';
@@ -57,7 +56,6 @@ import { FloatnumPipe } from './floatnum.pipe';
     PopupDirective,
     LoaderComponent,
     AlertErrorComponent,
-    UppercasePipe,
     FloatnumPipe
   ],
   imports: [

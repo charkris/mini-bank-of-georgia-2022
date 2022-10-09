@@ -1,7 +1,6 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {ClientService} from '../../shared/identify/client.service';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'bg-client-header',

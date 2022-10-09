@@ -1,5 +1,5 @@
-import {Component, OnInit, SimpleChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AuthService} from '../../shared/auth/auth.service';
 import {BGValidators} from '../../shared/validators';

@@ -12,12 +12,8 @@ import {LoaderService} from '../loader/loader.service';
 export class ClientService {
 
   client = new BehaviorSubject<Client>(undefined);
-  identClient = new BehaviorSubject<Client>(undefined);
-  // showClientHeader: boolean;
   clientInfo = JSON.parse(localStorage.getItem('clientInfo'));
   isIdentified = !!localStorage.getItem('clientInfo');
-  // clientKey: number;
-  // clientKey = JSON.parse(localStorage.getItem('clientInfo'))?.clientKey;
 
   constructor(private http: HttpClient, private loaderService: LoaderService) {
   }
@@ -69,7 +65,6 @@ export class ClientService {
       resData.sumAmount,
       resData.plusPoints,
     );
-    // this.isIdentified.next(true);
     this.client.next(client);
     localStorage.setItem('clientInfo', JSON.stringify(client));
   };

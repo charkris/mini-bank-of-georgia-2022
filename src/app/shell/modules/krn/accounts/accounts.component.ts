@@ -12,11 +12,10 @@ import {ClientService} from '../../../../shared/identify/client.service';
 
 
 export class AccountsComponent implements OnInit, OnDestroy {
-  clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
   accounts: any;
   showFlag: any;
-
   mySubscrip: Subscription;
+  clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
 
   constructor(private router: Router,
               public accountService: AccountService,

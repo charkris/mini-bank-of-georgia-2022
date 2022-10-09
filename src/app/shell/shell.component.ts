@@ -1,6 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {ClientService} from '../shared/identify/client.service';
 
 @Component({
   selector: 'bg-shell',

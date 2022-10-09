@@ -31,7 +31,8 @@
   </div>
   <div class="field">
     <div class="ui left icon input ">
-      <input type="password" placeholder="განმეორებითი პაროლი" formControlName="confirmPassword"><i class="lock icon"></i>
+      <input type="password" placeholder="განმეორებითი პაროლი" formControlName="confirmPassword"><i
+      class="lock icon"></i>
     </div>
     <p *ngIf="get('confirmPassword').invalid && get('confirmPassword').touched">
       <ng-container *ngFor="let errorMessage of errors('confirmPassword')">

@@ -1,9 +1,11 @@
 import {HttpClient} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {Subject, throwError} from 'rxjs';
 import {AccountResponseModel} from './account-response.model';
 import {Injectable} from '@angular/core';
 import {LoaderService} from '../loader/loader.service';
+import {AlertService} from '../alert-error/alert.service';
+import {AuthResponseModel} from '../auth/auth-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,9 @@ export class AccountService {
   showAcctList = new Subject();
   acctList: Array<AccountResponseModel>;
 
-  constructor(private http: HttpClient, private loaderService: LoaderService) {
+  constructor(private http: HttpClient,
+              private loaderService: LoaderService,
+              private alertService: AlertService) {
   }
 
   getAccounts(clientKey) {
@@ -57,8 +61,9 @@ export class AccountService {
       senderAccountKey, receiverAccountKey, amount
     }).pipe(
       this.loaderService.useLoader,
-      catchError(err => throwError(err.error)),
+      catchError((err) => throwError(err.error)),
     );
   }
+
 
 }

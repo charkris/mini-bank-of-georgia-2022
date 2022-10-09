@@ -23,7 +23,6 @@ export class RegisterComponent implements OnInit {
 
   onRegister() {
     if (this.registerForm.invalid) {
-      console.log('invalid');
       return;
     }
     const fullName = this.get('fullName').value;
@@ -56,17 +55,25 @@ export class RegisterComponent implements OnInit {
   initForm() {
     this.registerForm = new FormGroup({
       fullName: new FormControl(undefined,
-        [BGValidators.required, BGValidators.minLength(2), BGValidators.maxLength(30)]),
+        [BGValidators.required,
+          BGValidators.minLength(2),
+          BGValidators.maxLength(30)]),
       userName: new FormControl(undefined,
-        [BGValidators.required, BGValidators.minLength(2), BGValidators.maxLength(30),
+        [BGValidators.required,
+          BGValidators.minLength(2),
+          BGValidators.maxLength(30),
           BGValidators.pattern(/^\S*$/, 'სფეისების გარეშე'),
         ]),
       password: new FormControl(undefined,
-        [BGValidators.required, BGValidators.minLength(2), BGValidators.maxLength(30)]),
+        [BGValidators.required,
+          BGValidators.minLength(2),
+          BGValidators.maxLength(30)]),
       confirmPassword: new FormControl(undefined,
-        [BGValidators.required, BGValidators.minLength(2), BGValidators.maxLength(30),
-        // BGValidators.MatchValidator('password', 'confirmPassword')
-        ], )
+        [BGValidators.required,
+          BGValidators.minLength(2),
+          BGValidators.maxLength(30),
+          // BGValidators.MatchValidator('password', 'confirmPassword')
+        ],)
     });
   }
 }

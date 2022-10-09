@@ -1,0 +1,14 @@
+import {BehaviorSubject} from 'rxjs';
+import {Injectable} from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class AlertService {
+  constructor() {
+  }
+
+  loggedError = new BehaviorSubject<string>(undefined);
+
+}

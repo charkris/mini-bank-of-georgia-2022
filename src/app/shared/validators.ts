@@ -40,14 +40,15 @@ export class BGValidators extends Validators {
     });
   }
 
-  static MatchValidator(pass: string, confPass: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get(pass);
-      const confPassword = control.get(confPass);
-      console.log(password.value, confPassword.value);
-      return pass && confPass && password.value !== confPassword.value
-        ? {mismatch: 'პაროლები არ ემთხევვა'} : null;
-    };
-  }
+  // static MatchValidator(pass: string, confPass: string) {
+  //   return (control: AbstractControl) => {
+  //     const password = control.get(pass)?.value;
+  //     const confPassword = control.get(confPass)?.value;
+  //     console.log(password, confPassword);
+  //     return pass && confPass && password !== confPassword
+  //       ? {mismatch: 'პაროლები არ ემთხევვა'} : null;
+  //   };
+  // }
+
 
 }

@@ -1,9 +1,9 @@
-<div class="ui active dimmer" (click)="onClose()">
+<div class="ui active dimmer" *ngIf="error" (click)="onCloseModal()">
   <div class="ui active modal">
     <div class="header">შეცდომა</div>
     <div class="content"> {{ error }}</div>
     <div class="actions">
-      <div class="ui orange icon button" (click)="onClose()">
+      <div class="ui orange icon button" (click)="onCloseModal()">
         <i class="check icon"></i>
       </div>
     </div>
