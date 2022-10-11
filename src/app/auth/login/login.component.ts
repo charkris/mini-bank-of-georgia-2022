@@ -22,14 +22,12 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.invalid) {
-      console.log('invalid');
       return;
     }
     const username = this.get('userName').value;
     const password = this.get('password').value;
     this.authService.login(username, password).subscribe(
       (resData) => {
-        // console.log(resData);
         this.router.navigate(['/bpm/bpm000']);
         this.loginForm.reset();
       }

@@ -1,13 +1,12 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-
-const BASE_API = 'https://bog-angular-course-api.herokuapp.com/';
+import {environment} from '../../environments/environment';
 
 export class UrlInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req.clone({
-        url: BASE_API + req.url
+        url: environment.api_url + req.url
       }
     ));
   }
