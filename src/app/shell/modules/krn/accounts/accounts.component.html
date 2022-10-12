@@ -9,7 +9,10 @@
         <i class="icon plus"></i>
       </div>
     </div>
-    <table>
+    <div class="ui segment" *ngIf="!(accountService.acctList?.length>0)">
+      <p>ჩანაწერი არ მოიძებნა</p>
+    </div>
+    <table *ngIf="accountService.acctList?.length">
       <thead>
       <th>მფლობელი</th>
       <th>სახელი</th>

@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../../../shared/validators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {ClientService} from '../../../../shared/identify/client.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'bg-bpm001',
   templateUrl: './bpm001.component.html',
   styleUrls: ['./bpm001.component.scss']
 })
-export class Bpm001Component implements OnInit {
+export class Bpm001Component implements OnInit, OnDestroy {
   addClientForm: FormGroup;
+  newClientSub: Subscription;
   error;
 
   constructor(private http: HttpClient,
@@ -30,7 +32,7 @@ export class Bpm001Component implements OnInit {
     const firstName = this.get('firstName').value;
     const lastName = this.get('lastName').value;
     const plusPoints = this.get('plusPoints').value;
-    this.clientService.addClient(firstName, lastName, plusPoints).subscribe(
+    this.newClientSub = this.clientService.addClient(firstName, lastName, plusPoints).subscribe(
       (resp) => {
         this.addClientForm.reset();
         this.clientService.clientInfo = resp;
@@ -62,4 +64,7 @@ export class Bpm001Component implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.newClientSub.unsubscribe();
+  }
 }

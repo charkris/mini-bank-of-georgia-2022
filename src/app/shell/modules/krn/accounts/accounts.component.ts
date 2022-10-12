@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AccountService} from '../../../../shared/account/account.service';
 import {Subscription} from 'rxjs';
@@ -11,7 +11,7 @@ import {ClientService} from '../../../../shared/identify/client.service';
 })
 
 
-export class AccountsComponent implements OnInit, OnDestroy {
+export class AccountsComponent implements OnInit {
   accounts: any;
   showFlag: any;
   mySubscrip: Subscription;
@@ -54,7 +54,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   accountList() {
-    this.mySubscrip = this.accountService.getAccounts(this.clientKey)
+    this.accountService.getAccounts(this.clientKey)
       .subscribe(resp => {
           this.accountService.acctList = resp;
           this.clientService.getAuthorizedClientInfo(this.clientKey).subscribe(
@@ -67,7 +67,4 @@ export class AccountsComponent implements OnInit, OnDestroy {
     return this.accountService.acctList;
   }
 
-  ngOnDestroy() {
-    // this.mySubscrip.unsubscribe();
-  }
 }

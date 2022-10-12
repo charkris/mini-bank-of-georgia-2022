@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-import {ShellComponent} from './shell.component';
 import {RouterModule, Routes} from '@angular/router';
+import {ShellComponent} from './shell.component';
 import {AuthGuard} from '../shared/auth/auth.guard';
 
 const routes: Routes = [
