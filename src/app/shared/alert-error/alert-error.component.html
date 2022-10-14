@@ -1,9 +1,9 @@
-<div class="ui active dimmer" *ngIf="error" (click)="onCloseModal()">
-  <div class="ui active modal">
+<div class="ui active dimmer" *ngIf="alertService.error" (click)="alertService.error = undefined">
+  <div class="ui active modal" (click)="$event.stopPropagation()">
     <div class="header">შეცდომა</div>
-    <div class="content"> {{ error }}</div>
+    <div class="content"> {{ alertService.error }} </div>
     <div class="actions">
-      <div class="ui orange icon button" (click)="onCloseModal()">
+      <div class="ui orange icon button" (click)="alertService.error = undefined">
         <i class="check icon"></i>
       </div>
     </div>

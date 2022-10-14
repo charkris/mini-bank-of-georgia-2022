@@ -4,7 +4,6 @@ import {Subject, throwError} from 'rxjs';
 import {AccountResponseModel} from './account-response.model';
 import {Injectable} from '@angular/core';
 import {LoaderService} from '../loader/loader.service';
-import {AlertService} from '../alert-error/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,7 @@ export class AccountService {
   acctList: Array<AccountResponseModel>;
 
   constructor(private http: HttpClient,
-              private loaderService: LoaderService,
-              private alertService: AlertService) {
+              private loaderService: LoaderService) {
   }
 
   getAccounts(clientKey) {
@@ -25,7 +23,6 @@ export class AccountService {
       `accounts?clientKey=${clientKey}`).pipe(
       this.loaderService.useLoader,
       catchError((err) => throwError(err.error)),
-      // tap((resp) => this.clientHandler(resp))
     );
   }
 
@@ -50,7 +47,6 @@ export class AccountService {
     }).pipe(
       this.loaderService.useLoader,
       catchError(err => throwError(err.error),
-        //   tap(resp => console.log(resp))
       )
     );
   }
@@ -60,9 +56,8 @@ export class AccountService {
       senderAccountKey, receiverAccountKey, amount
     }).pipe(
       this.loaderService.useLoader,
-      catchError((err) => throwError(this.alertService.loggedError.next(err.error))),
+      catchError((err) => throwError(err.error)),
     );
   }
-
 
 }

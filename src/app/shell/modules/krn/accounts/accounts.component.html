@@ -1,4 +1,4 @@
-<div class="ui segments"  *ngIf="showFlag">
+<div class="ui segments" *ngIf="showFlag">
   <div class="ui segment">
     <h1>ანგარიშები</h1>
   </div>
@@ -9,9 +9,9 @@
         <i class="icon plus"></i>
       </div>
     </div>
-    <div class="ui segment" *ngIf="!(accountService.acctList?.length>0)">
-      <p>ჩანაწერი არ მოიძებნა</p>
-    </div>
+    <table *ngIf="!(accountService.acctList?.length>0)">
+      <div>ჩანაწერი არ მოიძებნა</div>
+    </table>
     <table *ngIf="accountService.acctList?.length">
       <thead>
       <th>მფლობელი</th>

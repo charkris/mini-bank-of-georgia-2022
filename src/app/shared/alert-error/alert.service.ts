@@ -1,4 +1,3 @@
-import {BehaviorSubject} from 'rxjs';
 import {Injectable} from '@angular/core';
 
 @Injectable({
@@ -6,9 +5,9 @@ import {Injectable} from '@angular/core';
 })
 
 export class AlertService {
+  error;
+
   constructor() {
   }
-
-  loggedError = new BehaviorSubject<string>(undefined);
 
 }

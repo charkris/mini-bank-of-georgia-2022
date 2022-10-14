@@ -7,7 +7,6 @@ import {LoaderService} from '../loader/loader.service';
 import {AuthResponseModel} from './auth-response.model';
 import {catchError, tap} from 'rxjs/operators';
 import {ClientService} from '../identify/client.service';
-import {AlertService} from '../alert-error/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient,
               private loaderService: LoaderService,
               private router: Router,
-              private clientService: ClientService,
-              private alertService: AlertService) {
+              private clientService: ClientService) {
   }
 
   registerUser(name, username, password) {
@@ -33,7 +31,7 @@ export class AuthService {
       password,
     }).pipe(
       this.loaderService.useLoader,
-      catchError((err) => throwError(this.alertService.loggedError.next(err.error)),
+      catchError((err) => throwError(err.error),
       ),
       tap((resData) => this.authHandler(resData)),
     );
@@ -45,8 +43,7 @@ export class AuthService {
       username, password
     }).pipe(
       this.loaderService.useLoader,
-      catchError((err) =>
-        throwError(this.alertService.loggedError.next(err.error)),
+      catchError((err) => throwError(err.error),
       ),
       tap((resData) => this.authHandler(resData))
     );

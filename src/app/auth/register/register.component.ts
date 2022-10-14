@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../shared/validators';
 import {AuthService} from '../../shared/auth/auth.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../../shared/alert-error/alert.service';
 
 @Component({
   selector: 'bg-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   error;
 
   constructor(private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -33,9 +35,7 @@ export class RegisterComponent implements OnInit {
       (resData) => {
         this.registerForm.reset();
         this.router.navigate(['/bpm/bpm000']);
-      }, (error) => {
-        this.error = error;
-      }
+      }, (error) =>  this.alertService.error = error,
     );
   }
 

@@ -8,9 +8,20 @@ import {PopupDirective} from '../shell/shell-header/popup.directive';
 import {FloatnumPipe} from './floatnum.pipe';
 
 @NgModule({
-  declarations: [LoaderComponent, AlertErrorComponent, PopupDirective, FloatnumPipe],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  exports: [CommonModule, ReactiveFormsModule, FormsModule, LoaderComponent, AlertErrorComponent, PopupDirective, FloatnumPipe],
+  declarations: [LoaderComponent,
+    AlertErrorComponent,
+    PopupDirective,
+    FloatnumPipe],
+  imports: [CommonModule,
+    ReactiveFormsModule,
+    FormsModule],
+  exports: [CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    LoaderComponent,
+    AlertErrorComponent,
+    PopupDirective,
+    FloatnumPipe],
 })
 
 export class SharedModule {

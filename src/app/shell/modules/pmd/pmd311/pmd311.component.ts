@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {BGValidators} from '../../../../shared/validators';
 import {AccountService} from '../../../../shared/account/account.service';
 import {Subscription} from 'rxjs';
+import {AlertService} from '../../../../shared/alert-error/alert.service';
 
 @Component({
   selector: 'bg-pmd311',
@@ -17,12 +18,14 @@ export class Pmd311Component implements OnInit, OnDestroy {
   dstAccounts: any;
   clientKey = JSON.parse(localStorage.getItem('clientInfo')).clientKey;
 
-  constructor(private router: Router, private accountService: AccountService) {
+  constructor(private router: Router,
+              private accountService: AccountService,
+              private alertService: AlertService) {
   }
 
   ngOnInit(): void {
     this.initForm();
-    this.transferSub =  this.accountService.getAllAccounts().subscribe(
+    this.transferSub = this.accountService.getAllAccounts().subscribe(
       (resp) => this.dstAccounts = resp,
     );
     this.accountService.getAccounts(this.clientKey).subscribe(
@@ -44,6 +47,10 @@ export class Pmd311Component implements OnInit, OnDestroy {
       resp => this.accountService.getAccounts(this.clientKey).subscribe(
         acctList => this.accountService.acctList = acctList,
       ),
+      (error) => {
+        this.alertService.error = error;
+        this.router.navigate(['/pmd/pmd311'])
+      },
     );
     this.router.navigate(['/krn/accounts']);
   }
