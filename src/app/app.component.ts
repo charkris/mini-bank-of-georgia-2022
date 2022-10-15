@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from './shared/auth/auth.service';
 
 @Component({
   selector: 'bg-root',
@@ -8,10 +9,11 @@ import {Component, OnInit} from '@angular/core';
 export class AppComponent implements OnInit {
   name = 'Levan';
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.authService.autoLogin();
   }
 
 }

@@ -65,6 +65,6 @@ export class Bpm001Component implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.newClientSub.unsubscribe();
+    this.newClientSub?.unsubscribe();
   }
 }

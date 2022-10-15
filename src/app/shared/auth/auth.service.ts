@@ -14,7 +14,6 @@ import {ClientService} from '../identify/client.service';
 export class AuthService {
 
   user = new BehaviorSubject<User>(undefined);
-  isLoggedIn = !!localStorage.getItem('userData');
   private timer: any;
 
   constructor(private http: HttpClient,
@@ -24,7 +23,6 @@ export class AuthService {
   }
 
   registerUser(name, username, password) {
-    this.isLoggedIn = true;
     return this.http.post<AuthResponseModel>('register', {
       name,
       username,
@@ -38,7 +36,6 @@ export class AuthService {
   }
 
   login(username, password) {
-    this.isLoggedIn = true;
     return this.http.post<AuthResponseModel>('login', {
       username, password
     }).pipe(
@@ -49,8 +46,26 @@ export class AuthService {
     );
   }
 
+  autoLogin() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+    const user = new User(
+      userData._token,
+      new Date(userData._expirationDate),
+      userData.name,
+      userData.username,
+      userData.image,
+    );
+    if (user.token) {
+      this.user.next(user);
+    }
+    this.autoLogout(new Date(userData._expirationDate).getTime() - new Date().getTime()
+    );
+  }
+
   logout() {
-    this.isLoggedIn = false;
     this.user.next(undefined);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
